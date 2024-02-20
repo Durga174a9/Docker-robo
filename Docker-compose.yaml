@@ -8,17 +8,23 @@ services:
     image: mongodb:v1
     container_name: mongodb
 
-  catalaogue:
-    image: catalaogue:v1
-    container_name: catalaogue
+  catalogue:
+    image: catalogue:v1
+    container_name: catalogue
     depends_on:
       - mongodb
 
   web:
     image: web:v1
     container_name: web
+    ports:
+      -"80:80"
     depends_on:
-      - 
+      - catalogue
+      - cart
+      - user
+      - shipping
+      - payment
       
 
   redis:
@@ -36,7 +42,7 @@ services:
     container_name: cart
     depends_on:
       - redis
-      - catalaogue
+      - catalogue
 
   mysql:
     image: mysql:v1
